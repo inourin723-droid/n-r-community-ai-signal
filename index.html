@@ -1,0 +1,167 @@
+<!DOCTYPE html><html>
+<head><title>N-R COMMUNITY AI SIGNAL</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>
+
+body{
+background:#050505;
+font-family:Arial;
+color:white;
+text-align:center;
+margin:0;
+}
+
+.logo{
+font-size:36px;
+font-weight:bold;
+color:#b266ff;
+margin-top:20px;
+text-shadow:0 0 20px purple;
+}
+
+.card{
+margin:20px;
+padding:25px;
+border-radius:15px;
+border:2px solid #b266ff;
+box-shadow:0 0 25px purple;
+}
+
+.signal{
+font-size:35px;
+padding:15px;
+border-radius:10px;
+margin-top:10px;
+}
+
+.big{background:#00ff88;color:black;}
+.small{background:#ff4444;}
+
+.number{
+font-size:60px;
+margin-top:10px;
+}
+
+.red{color:#ff4444;}
+.green{color:#00ff88;}
+
+.timer{
+font-size:20px;
+margin-top:10px;
+}
+
+.bar{
+width:80%;
+height:10px;
+background:#222;
+margin:auto;
+border-radius:10px;
+margin-top:10px;
+}
+
+.fill{
+height:10px;
+width:80%;
+background:linear-gradient(red,yellow,green);
+border-radius:10px;
+}
+
+table{
+width:90%;
+margin:auto;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+td,th{
+border:1px solid #333;
+padding:8px;
+}
+
+</style></head><body><div class="logo">N-R COMMUNITY</div><div class="card"><h3>DKWIN AI WINGO SIGNAL</h3><p>Current Period</p>
+<h2 id="period">Loading...</h2><p class="timer">Next Signal In: <span id="timer">60</span>s</p><div id="number" class="number green">5</div><div id="signal" class="signal big">BIG</div><p>Confidence: <span id="confidence">80%</span></p><div class="bar">
+<div id="fill" class="fill"></div>
+</div></div><h3>Prediction History</h3><table><tr>
+<th>Period</th>
+<th>Number</th>
+<th>Signal</th>
+<th>Confidence</th>
+</tr><tbody id="history"></tbody></table><script>
+
+let timer=60
+
+function newSignal(){
+
+let number=Math.floor(Math.random()*10)
+
+let signal="SMALL"
+
+if(number>=5){
+signal="BIG"
+}
+
+let color="red"
+
+if(number%2==1){
+color="green"
+}
+
+let conf=Math.floor(Math.random()*20)+75
+
+let period=Date.now()
+
+document.getElementById("number").innerText=number
+document.getElementById("number").className="number "+color
+
+document.getElementById("signal").innerText=signal
+
+document.getElementById("confidence").innerText=conf+"%"
+
+document.getElementById("fill").style.width=conf+"%"
+
+document.getElementById("period").innerText=period
+
+if(signal=="BIG"){
+document.getElementById("signal").className="signal big"
+}else{
+document.getElementById("signal").className="signal small"
+}
+
+addHistory(period,number,signal,conf)
+
+}
+
+function addHistory(p,n,s,c){
+
+let row=`
+<tr>
+<td>${p}</td>
+<td>${n}</td>
+<td>${s}</td>
+<td>${c}%</td>
+</tr>
+`
+
+document.getElementById("history").innerHTML=row+
+document.getElementById("history").innerHTML
+
+}
+
+setInterval(function(){
+
+timer--
+
+document.getElementById("timer").innerText=timer
+
+if(timer==0){
+
+newSignal()
+
+timer=60
+
+}
+
+},1000)
+
+newSignal()
+
+</script></body>
+</html>
